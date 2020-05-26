@@ -11,7 +11,7 @@ home_routes = Blueprint("home_routes", __name__)
 def index():
     x = 2 + 2
     # return f"Hello World! {x}"
-    with open("web_app/db/strains.json") as f:
+    with open("web_app/db/strains_updated.json") as f:
         data = json.load(f)
     # st()
     # temp_var = json.loads("web_app/db/strains.json")
