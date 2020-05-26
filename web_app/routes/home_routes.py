@@ -7,7 +7,7 @@ from pdb import set_trace as st
 home_routes = Blueprint("home_routes", __name__)
 
 
-@home_routes.route("strains/")
+@home_routes.route("/strains")
 def index():
     x = 2 + 2
     # return f"Hello World! {x}"
