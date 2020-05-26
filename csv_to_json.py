@@ -5,3 +5,7 @@ strains = pd.read_csv('https://raw.githubusercontent.com/Build-Week-Med-Cabinet-
 
 strains.to_json('strains.json', orient='records')
 
+# for brandon
+for_brandon = pd.read_csv('forbrandon.csv')
+
+for_brandon.to_json('for_brandon.json', orient='records')
