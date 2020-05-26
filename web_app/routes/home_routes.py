@@ -13,7 +13,7 @@ def index():
     # return f"Hello World! {x}"
     with open("web_app/db/strains.json") as f:
         data = json.load(f)
-    # st()
+    #breakpoint()
     # temp_var = json.loads("web_app/db/strains.json")
     return jsonify(data)
 
