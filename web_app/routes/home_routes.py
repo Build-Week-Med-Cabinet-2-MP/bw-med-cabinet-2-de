@@ -21,7 +21,7 @@ def index():
 @home_routes.route("/web_layout_strains")
 # creating new json object with 4 columns: name, desc, flavor, effect
 def four_col_format():
-    with open(join_path('web_app', 'db', 'for_brandon.json')) as f:
+    with open(join_path('web_app', 'db', 'web_layout_strains.json')) as f:
         data = json.load(f)
     return jsonify(data)
 

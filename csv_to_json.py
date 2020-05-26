@@ -6,6 +6,13 @@ strains = pd.read_csv('https://raw.githubusercontent.com/Build-Week-Med-Cabinet-
 strains.to_json('strains.json', orient='records')
 
 # for brandon
+def list_convert(string):
+    return eval(string)
+
 for_brandon = pd.read_csv('forbrandon.csv')
 
-for_brandon.to_json('for_brandon.json', orient='records')
+for_brandon['flavors'] = for_brandon.apply(lambda x: list_convert(x['flavors']), axis=1)
+
+for_brandon['effects'] = for_brandon.apply(lambda x: list_convert(x['effects']), axis=1)
+
+for_brandon.to_json('web_layout_strains.json', orient='records')
