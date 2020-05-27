@@ -76,7 +76,7 @@ def dataframe_to_json(df):
     return jsonify(df.to_dict())
 
 
-@home_routes.route("/dummy_model", methods=["GET"])
+@home_routes.route("/dummy_model", methods=["POST"])
 def dummy_final_output():
     '''
     returns a dummy output json
@@ -151,8 +151,6 @@ def index():
 
 
 @home_routes.route("/web_layout_strains")
-
-
 def four_col_format():
     '''
     Creatis new .json object with 4 columns: 
