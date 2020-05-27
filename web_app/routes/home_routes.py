@@ -4,8 +4,8 @@ from flask import Blueprint, jsonify, request
 # from flask_migrate import Migrate
 # import psycopg2 as psy
 # from psycopg2.extras import execute_values
-from sqlalchemy import create_engine
 # from dotenv import load_dotenv
+from sqlalchemy import create_engine
 import json
 from pdb import set_trace as st
 from os.path import join as join_path
@@ -28,6 +28,8 @@ def final_output():
     '''
     Gets input data, feeds it to model, takes model output (df), converts to .json object and returns it
     '''
+    data = request.data
+    # st()
     input_dict = receive_inputs()
     encoded_input = input_dict(input_dict, df_cols)
 
@@ -76,11 +78,13 @@ def dataframe_to_json(df):
     return jsonify(df.to_dict())
 
 
-@home_routes.route("/dummy_model", methods=["POST"])
+@home_routes.route("/dummy_model", methods=["POST", "GET"])
 def dummy_final_output():
     '''
     returns a dummy output json
     '''
+    # data = request.form["data_2"]
+    # st()
     dummy_decoded_output = [
         {
             "Name": "Agent Tangie",
