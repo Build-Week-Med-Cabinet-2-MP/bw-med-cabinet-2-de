@@ -6,10 +6,11 @@ from flask import Blueprint, jsonify, request
 # from psycopg2.extras import execute_values
 from sqlalchemy import create_engine
 # from dotenv import load_dotenv
-import json 
+import json
 from pdb import set_trace as st
 from os.path import join as join_path
 import pandas as pd
+import pickle
 
 # load_dotenv()
 home_routes = Blueprint("home_routes", __name__)
@@ -25,13 +26,20 @@ df_cols = ['Ammonia','Apple','Apricot','Berry','Blue Cheese','Blueberry','Cheese
 @home_routes.route("/model", methods=["POST"])
 def final_output():
     '''
-    Takes model output (dict?), converts to .json object
+    Gets input data, feeds it to model, takes model output (df), converts to .json object and returns it
     '''
     input_dict = receive_inputs()
     encoded_input = input_dict(input_dict, df_cols)
-    model_output = model.predict(encoded_input)
-    decoded_output = decoded_output(model_output, df_cols)
-    return jsonify(decoded_output)
+
+    ##### TODO: change this code to pickle and predict
+    temp_file = open('examplePickle.pickl', 'rb')      
+    model = pickle.load(temp_file) 
+    temp_file.close()
+    model_output_df = model.knn_predict(encoded_input)
+    #####
+
+    json_output = dataframe_to_json(model_output_df)
+    return json_output
 
 
 def receive_inputs():
@@ -60,10 +68,18 @@ def input_encoder(input_dict, df_cols):
     # print(input_encoder(inputs, df_cols))
 
 
-@home_routes.route("/dummy_model", methods=["POST"])
+def dataframe_to_json(df):
+    '''
+    converts a dataframe to a json object
+    '''    
+    # df = pd.DataFrame(dummy_decoded_output)
+    return jsonify(df.to_dict())
+
+
+@home_routes.route("/dummy_model", methods=["GET"])
 def dummy_final_output():
     '''
-    returns a dummy output
+    returns a dummy output json
     '''
     dummy_decoded_output = [
         {
@@ -133,6 +149,7 @@ def index():
     # temp_var = json.loads("web_app/db/strains.json")
     return jsonify(data)
 
+
 @home_routes.route("/web_layout_strains")
 
 
@@ -146,6 +163,13 @@ def four_col_format():
     return jsonify(data)
 
 
-@home_routes.route("/about")
-def about():
-    return "A Flask App for Medicine Cabinet"
+
+
+######## TEST METHODS
+@home_routes.route("/dummy_model_TEST", methods=["GET"])
+def dummy_final_output_TEST(df):
+    '''
+    converts a dataframe to a json object
+    '''    
+    # df = pd.DataFrame(dummy_decoded_output)
+    return jsonify(df.to_dict())
