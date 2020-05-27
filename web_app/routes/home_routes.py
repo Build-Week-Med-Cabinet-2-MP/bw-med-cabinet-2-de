@@ -17,13 +17,12 @@ migrate = Migrate()
 
 DATABASE_URL = os.getenv(DATABASE_URL, default="try_again")
 
-
-
+df_cols = ['Ammonia','Apple','Apricot','Berry','Blue Cheese','Blueberry','Cheese','Chemical','Chestnut','Citrus','Coffee','Diesel','Earthly','Flowery','Grape','Grapefruit','Honey','Lavender','Lemon','Lime','Mango','Mint','Nutty','Orange','Pepper','Pine','Pineapple','Plum','Pungent','Sage','Skunk','Spicy/Herbal','Tropical','Vanilla','Woody','Aroused','Creative','Energetic','Euphoric','Focused','Giggly','Happy','Hungry','Relaxed','Sleepy','Talkative','Tingly','Uplifted','Hybrid','Indica']
 
 # get dict from ML guys
 # convert dict to .json object
 # backend can get .json from url/model
-@home_routes.route("/input", methods=["POST"])
+@home_routes.route("/model", methods=["POST"])
 def receive_inputs():
     '''
     Takes form (.json object) from front-end and converts into dict for ML
@@ -52,7 +51,12 @@ def final_output():
     '''
     Takes model output (dict?), converts to .json object
     '''
-    
+    input_dict = receive_inputs()
+    encoded_input = input_dict(input_dict, df_cols)
+    model_output = model.predict(encoded_input)
+    decoded_output= decoded_output(model_output, df_cols)
+    return jsonify(decoded_output)
+
 
 @home_routes.route("/refresh")
 def create_db()
