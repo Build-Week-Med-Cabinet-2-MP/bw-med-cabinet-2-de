@@ -60,7 +60,7 @@ def input_encoder(input_dict, df_cols):
     # print(input_encoder(inputs, df_cols))
 
 
-@home_routes.route("/dummy_model", methods=["POST"])
+@home_routes.route("/dummy_model", methods=["GET"])
 def dummy_final_output():
     '''
     returns a dummy output
