@@ -18,7 +18,7 @@ JSON object in the following format:
 It has to have 2 keys "Flavors" and "Effects" in it. Each of their values are an array which contain at most 3 strings.
 
 ### Response:
-JSON: list of a dictionary with 4 keys:</br>
+JSON: list of dictionaries, each with 4 keys:</br>
 ["Name", "Description", "Flavors", "Effects"]
 ```js
 [
