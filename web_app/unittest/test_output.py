@@ -1,13 +1,16 @@
 import unittest
 import requests
 import json
+from pdb import set_trace as st
 
 class TestData(unittest.TestCase):
 
     def test_url(self):
         url = "http://127.0.0.1:5000/strains"
         response = requests.get(url)
-        self.assertIsInstance(response.json().to_dict(orient="records"), dict)
+        # st()
+
+        self.assertIsInstance(response.json(), list)
 
     def test_input(self):
         #self.assertIsInstance(self.json_input, json)
