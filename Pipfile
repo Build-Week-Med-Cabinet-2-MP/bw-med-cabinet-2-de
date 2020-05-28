@@ -12,6 +12,8 @@ flask-migrate = "*"
 gunicorn = "*"
 python-dotenv = "*"
 pandas = "*"
+scikit-learn = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.6"
