@@ -1,17 +1,16 @@
 # web_app/routes/home_routes.py
 
 from flask import Blueprint, jsonify, request, redirect, render_template
-from sqlalchemy import create_engine
 import json
 from pdb import set_trace as st
 from os.path import join as join_path
 import pandas as pd
-import pickle
 import numpy as np
 from web_app.ml_models.StrainRecommendation import StrainRecommendation as SR
 
 # Extra imports if neeeded
 # from flask_migrate import Migrate
+# from sqlalchemy import create_engine
 # import psycopg2 as psy
 # from psycopg2.extras import execute_values
 # from dotenv import load_dotenv
@@ -77,7 +76,7 @@ def input_encoder(input_dict, df_cols):
 
 # POST: backend gives us the input .json object
 # GET: backend requests the .json output (recommendations) from ML model 
-@home_routes.route("/model", methods=["POST", "GET"])
+@home_routes.route("/model", methods=["POST"])
 def final_output():
     '''
     Gets input data, feeds it to model, takes model output (df), converts to .json object and returns it
