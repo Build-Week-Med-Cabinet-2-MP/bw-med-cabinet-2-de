@@ -3,7 +3,6 @@
 from flask import Blueprint, jsonify, request, redirect
 from sqlalchemy import create_engine
 import json
-import requests
 from pdb import set_trace as st
 from os.path import join as join_path
 import pandas as pd
