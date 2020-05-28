@@ -19,7 +19,12 @@ It has to have 2 keys "Flavors" and "Effects" in it. Each of their values are an
 
 ### Response:
 JSON: list of dictionaries, each with 4 keys:</br>
-["Name", "Description", "Flavors", "Effects"]
+{
+    "Name" -> string,
+    "Description" -> string,
+    "Flavors" -> list of 3 strings,
+    "Effects" -> list of 3 strings,
+]
 ```js
 [
     {
