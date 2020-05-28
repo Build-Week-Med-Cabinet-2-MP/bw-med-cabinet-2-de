@@ -11,6 +11,8 @@ from pdb import set_trace as st
 from os.path import join as join_path
 import pandas as pd
 import pickle
+import numpy as np
+from StrainRecommendation import StrainRecommendation as SR
 
 # load_dotenv()
 home_routes = Blueprint("home_routes", __name__)
@@ -66,7 +68,7 @@ def input_encoder(input_dict, df_cols):
     for i in range(len(df_cols)):
         if df_cols[i] in input_list:
             one_hot_inputs[i] = 1
-    return one_hot_inputs
+    return np.array(one_hot_inputs)
     # print(input_encoder(inputs, df_cols))
 
 
@@ -129,17 +131,6 @@ def dummy_final_output():
     ]
     # st()
     return jsonify(dummy_decoded_output)
-
-
-@home_routes.route("/refresh")
-def create_db():
-    '''
-    Creates and connects to postgresql db
-    '''
-
-    engine = create_engine(DATABASE_URL, echo=False)
-    gres_conn = psy.connect(dbname=DB_NAME, user=DB_USER, password=DB_PW, host=DB_HOST)
-
 
 # route for strains (pre-data)
 @home_routes.route("/strains")
