@@ -23,7 +23,7 @@ JSON: list of dictionaries, each with 4 keys:</br>
     "Name" -> string,
     "Description" -> string,
     "Flavors" -> list of 3 strings,
-    "Effects" -> list of 3 strings,
+    "Effects" -> list of 3 strings
 ]
 ```js
 [
