@@ -1,6 +1,6 @@
 # web_app/routes/home_routes.py
 
-from flask import Blueprint, jsonify, request, redirect
+from flask import Blueprint, jsonify, request, redirect, render_template
 from sqlalchemy import create_engine
 import json
 from pdb import set_trace as st
@@ -27,13 +27,13 @@ df_cols = ['Ammonia', 'Apple', 'Apricot', 'Berry', 'Blue Cheese', 'Blueberry', '
            'Sage', 'Skunk', 'Spicy/Herbal', 'Strawberry', 'Sweet', 'Tar', 'Tea', 'Tobacco', 'Tree Fruit', 'Tropical', 'Vanilla', 'Woody', 'Aroused', 'Creative', 'Energetic', 'Euphoric', 'Focused', 'Giggly', 'Happy', 'Hungry', 'Relaxed', 'Sleepy', 'Talkative', 'Tingly', 'Uplifted', 'Hybrid', 'Indica', 'Sativa']
 
 # Creates a route redirecting to github
-@home_routes.route("/github")
+@home_routes.route("/")
 def github():
     '''
     Re-directs to github
     '''
-    github_url = 'https://github.com/Build-Week-Med-Cabinet-2-MP'
-    return redirect(github_url, code = 302, Response=None)
+    # github_url = 'https://github.com/Build-Week-Med-Cabinet-2-MP'
+    return render_template('github_button.html')
 
 # route for strains (pre-data)
 @home_routes.route("/strains")
