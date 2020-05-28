@@ -15,6 +15,7 @@ JSON object in the following format:
     "Effects": ["Focused", "Happy", "Relaxed"]
 }
 ```
+It has to have 2 keys "Flavors" and "Effects" in it. Each of their values are an array which contain at most 3 strings.
 
 ### Response:
 JSON: list of a dictionary with 4 keys:</br>
@@ -35,7 +36,10 @@ JSON: list of a dictionary with 4 keys:</br>
             "Giggly"
         ]
     },
-    {...},
+    {
+        "Name":...,
+        ...
+    },
     ...
 ]
 ```
@@ -60,7 +64,10 @@ JSON: list of a dictionaries which each contain 59 keys ("name", "description", 
         "Blue Cheese": 0,
         <'other 52 one-hot-encoded features'>
     },
-    {...},
+    {
+        "name": ...,
+        ...
+    },
     ...
 ]
 ```
@@ -90,6 +97,9 @@ JSON: list of a dictionaries which each contain 4 keys ("name", "description", "
             "Relaxed"
         ]
     },
-    {...},
+    {
+        "name": ...,
+        ...
+    },
     ...
 ]
