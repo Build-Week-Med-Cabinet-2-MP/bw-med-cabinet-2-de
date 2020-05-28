@@ -4,7 +4,7 @@ This is the data engineering side of the project
 # APIs:
 Base URL is https://weed-data-bw.herokuapp.com
 
-## POST [/model](https://weed-data-bw.herokuapp.com/model)
+## GET [/model](https://weed-data-bw.herokuapp.com/model)
 
 ### Request:
 JSON object in the following format:
