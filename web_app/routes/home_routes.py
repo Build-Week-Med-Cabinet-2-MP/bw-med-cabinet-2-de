@@ -12,7 +12,7 @@ from os.path import join as join_path
 import pandas as pd
 import pickle
 import numpy as np
-from StrainRecommendation import StrainRecommendation as SR
+from web_app.ml_models.StrainRecommendation import StrainRecommendation as SR
 
 # load_dotenv()
 home_routes = Blueprint("home_routes", __name__)
@@ -20,30 +20,38 @@ home_routes = Blueprint("home_routes", __name__)
 
 # DATABASE_URL = os.getenv(DATABASE_URL, default="try_again")
 
-df_cols = ['Ammonia','Apple','Apricot','Berry','Blue Cheese','Blueberry','Cheese','Chemical','Chestnut','Citrus','Coffee','Diesel','Earthly','Flowery','Grape','Grapefruit','Honey','Lavender','Lemon','Lime','Mango','Mint','Nutty','Orange','Pepper','Pine','Pineapple','Plum','Pungent','Sage','Skunk','Spicy/Herbal','Tropical','Vanilla','Woody','Aroused','Creative','Energetic','Euphoric','Focused','Giggly','Happy','Hungry','Relaxed','Sleepy','Talkative','Tingly','Uplifted','Hybrid','Indica']
+df_cols = ['Ammonia','Apple','Apricot','Berry','Blue Cheese','Blueberry','Cheese','Chemical','Chestnut','Citrus','Coffee','Diesel','Earthly','Flowery','Grape','Grapefruit','Honey','Lavender','Lemon','Lime','Mango','Mint','Nutty','Orange','Pepper','Pine','Pineapple','Plum','Pungent','Sage','Skunk','Spicy/Herbal','Strawberry','Sweet','Tar','Tea','Tobacco','Tree Fruit','Tropical','Vanilla','Woody','Aroused','Creative','Energetic','Euphoric','Focused','Giggly','Happy','Hungry','Relaxed','Sleepy','Talkative','Tingly','Uplifted','Hybrid','Indica', 'Sativa']
 
 # get dict from ML guys
 # convert dict to .json object
 # backend can get .json from url/model
-@home_routes.route("/model", methods=["POST"])
+@home_routes.route("/model", methods=["POST", "GET"])
 def final_output():
     '''
     Gets input data, feeds it to model, takes model output (df), converts to .json object and returns it
     '''
-    data = request.data
+    input_json_obj = request.json
+    # input_json_obj = request.data TODO: this maybe it
+
+    # input_dict = receive_inputs()
+    encoded_input = input_encoder(input_json_obj, df_cols)
+
+    # ##### TODO: change this code to pickle and predict
+    # temp_file = open('examplePickle.pickl', 'rb')      
+    # model = pickle.load(temp_file) 
+    # temp_file.close()
+    # model_output_df = model.knn_predict(encoded_input)
+    # #####
+
+    model = SR()
+    prediction_df = model.knn_predict(encoded_input)
+    prediction_dict = prediction_df.to_dict(orient="records")
     # st()
-    input_dict = receive_inputs()
-    encoded_input = input_dict(input_dict, df_cols)
 
-    ##### TODO: change this code to pickle and predict
-    temp_file = open('examplePickle.pickl', 'rb')      
-    model = pickle.load(temp_file) 
-    temp_file.close()
-    model_output_df = model.knn_predict(encoded_input)
-    #####
+    return jsonify(prediction_dict)
 
-    json_output = dataframe_to_json(model_output_df)
-    return json_output
+    # json_output = dataframe_to_json(model_output_df)
+    # return json_output
 
 
 def receive_inputs():
