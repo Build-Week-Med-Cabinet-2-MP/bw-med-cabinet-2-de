@@ -1,8 +1,9 @@
 # web_app/routes/home_routes.py
 
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, redirect
 from sqlalchemy import create_engine
 import json
+import requests
 from pdb import set_trace as st
 from os.path import join as join_path
 import pandas as pd
@@ -25,6 +26,15 @@ home_routes = Blueprint("home_routes", __name__)
 # columns from DF that will be used in the ML model
 df_cols = ['Ammonia', 'Apple', 'Apricot', 'Berry', 'Blue Cheese', 'Blueberry', 'Cheese', 'Chemical', 'Chestnut', 'Citrus', 'Coffee', 'Diesel', 'Earthly', 'Flowery', 'Grape', 'Grapefruit', 'Honey', 'Lavender', 'Lemon', 'Lime', 'Mango', 'Mint', 'Nutty', 'Orange', 'Pepper', 'Pine', 'Pineapple', 'Plum', 'Pungent',
            'Sage', 'Skunk', 'Spicy/Herbal', 'Strawberry', 'Sweet', 'Tar', 'Tea', 'Tobacco', 'Tree Fruit', 'Tropical', 'Vanilla', 'Woody', 'Aroused', 'Creative', 'Energetic', 'Euphoric', 'Focused', 'Giggly', 'Happy', 'Hungry', 'Relaxed', 'Sleepy', 'Talkative', 'Tingly', 'Uplifted', 'Hybrid', 'Indica', 'Sativa']
+
+# Creates a 
+@home_routes.route("/")
+def github():
+    '''
+    Re-directs to github
+    '''
+    github_url = 'https://github.com/Build-Week-Med-Cabinet-2-MP'
+    return redirect(github_url, code = 302, Response=None)
 
 # route for strains (pre-data)
 @home_routes.route("/strains")
