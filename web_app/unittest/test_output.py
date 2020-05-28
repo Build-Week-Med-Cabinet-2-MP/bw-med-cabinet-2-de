@@ -40,31 +40,49 @@ class TestDatatype(unittest.TestCase):
         response = requests.get(url)
         self.assertTrue(response.json())
 
-    def test_model_response_notnulle(self):
+    def test_model_response_notnull(self):
         '''
-        Tests that the /model route url response is a json object
+        Tests that the /model route json object is not null
         '''
         json_request = {
             "Flavors": ["Blueberry", "Apple", "Skunk"],
             "Effects": ["Focused", "Happy", "Relaxed"]
         }
         url = "http://127.0.0.1:5000/model"
-        response = requests.get(url, json=json_request)
+        response = requests.post(url, json=json_request)
         self.assertIsInstance(response.json(), list)
 
-    def test_model_response_length(self):
+    def test_flavor_length(self):
         '''
-        Tests that the /model route url response is a json object length is 3
+        Tests that the flavors are length 1 <= 3
         '''
         json_request = {
             "Flavors": ["Blueberry", "Apple", "Skunk"],
             "Effects": ["Focused", "Happy", "Relaxed"]
         }
         url = "http://127.0.0.1:5000/model"
-        response = requests.get(url)
-        self.assertEqual(len(response.json(), 3))
+        response = requests.post(url, json=json_request)
+        
+        # loop through the list of flavors
+        for i in range(len(response.json())):
+            self.assertTrue((len(response.json()[i]['Flavors']) >= 1) & (len(response.json()[i]['Flavors']) <= 3))
+
+    def test_effect_length(self):
+        '''
+        Tests that the effects are length 1 <= 3
+        '''
+        json_request = {
+            "Flavors": ["Blueberry", "Apple", "Skunk"],
+            "Effects": ["Focused", "Happy", "Relaxed"]
+        }
+        url = "http://127.0.0.1:5000/model"
+        response = requests.post(url, json=json_request)
+        
+        # loop through the list of effects
+        for i in range(len(response.json())):
+            self.assertTrue((len(response.json()[i]['Effects']) >= 1) & (len(response.json()[i]['Flavors']) <= 3))
+
 
 
 if __name__ == "__main__":
-    # breakpoint()
     unittest.main()
