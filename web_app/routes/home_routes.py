@@ -27,8 +27,8 @@ home_routes = Blueprint("home_routes", __name__)
 df_cols = ['Ammonia', 'Apple', 'Apricot', 'Berry', 'Blue Cheese', 'Blueberry', 'Cheese', 'Chemical', 'Chestnut', 'Citrus', 'Coffee', 'Diesel', 'Earthly', 'Flowery', 'Grape', 'Grapefruit', 'Honey', 'Lavender', 'Lemon', 'Lime', 'Mango', 'Mint', 'Nutty', 'Orange', 'Pepper', 'Pine', 'Pineapple', 'Plum', 'Pungent',
            'Sage', 'Skunk', 'Spicy/Herbal', 'Strawberry', 'Sweet', 'Tar', 'Tea', 'Tobacco', 'Tree Fruit', 'Tropical', 'Vanilla', 'Woody', 'Aroused', 'Creative', 'Energetic', 'Euphoric', 'Focused', 'Giggly', 'Happy', 'Hungry', 'Relaxed', 'Sleepy', 'Talkative', 'Tingly', 'Uplifted', 'Hybrid', 'Indica', 'Sativa']
 
-# Creates a 
-@home_routes.route("/")
+# Creates a route redirecting to github
+@home_routes.route("/github")
 def github():
     '''
     Re-directs to github
