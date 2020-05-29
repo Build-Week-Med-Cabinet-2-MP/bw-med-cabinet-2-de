@@ -2,6 +2,16 @@ import unittest
 import requests
 import json
 from pdb import set_trace as st
+from dotenv import load_dotenv
+from os import environ as os_environ
+
+
+# base_url = ""
+
+# load_dotenv()
+# _HEROKU_ENV = os_environ.get("_HEROKU_ENV")
+# if _HEROKU_ENV == "yes":
+#     "http://127.0.0.1:5000/"
 
 
 class TestDatatype(unittest.TestCase):
@@ -83,6 +93,8 @@ class TestDatatype(unittest.TestCase):
             self.assertTrue((len(response.json()[i]['Effects']) >= 1) & (len(response.json()[i]['Flavors']) <= 3))
 
 
-
 if __name__ == "__main__":
-    unittest.main()
+    log_file = '_log_file.txt'
+    with open(log_file, "w") as f:
+        runner = unittest.TextTestRunner(f)
+        unittest.main(testRunner=runner)
