@@ -7,6 +7,9 @@ from os.path import join as join_path
 import pandas as pd
 import numpy as np
 from web_app.ml_models.StrainRecommendation import StrainRecommendation as SR
+# from web_app.unittest.test_output
+import subprocess
+from os import listdir
 
 
 # creates blueprint object from this file
@@ -17,4 +20,9 @@ def unittest_output():
     '''
     Takes in unittest output and displays it
     '''
-    return "TODO"
+    subprocess.run(['python3', 'web_app/unittest/test_output.py'])
+
+    # read the output of the 
+    with open('_log_file.txt', "r") as f:
+        test_result = f.read()
+    return test_result

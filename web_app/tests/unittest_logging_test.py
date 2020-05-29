@@ -17,24 +17,10 @@ class TestCase(unittest.TestCase):
         # st()
 
 
-# import unittest
-# import logging
-# import sys
+log_file = 'log_file1.txt'
+with open(log_file, "w") as f:
+    runner = unittest.TextTestRunner(f)
+    unittest.main(testRunner=runner)
 
-
-# class MyTest(unittest.TestCase):
-#     def runTest(self):
-#         log = logging.getLogger("TestLog")
-#         log.debug("debug message")
-#         self.assertEqual(1, 1)
-
-# logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-
-# unittest.TextTestRunner().run(MyTest())
-
-
-if __name__ == '__main__':
-    log_file = 'log_file.txt'
-    with open(log_file, "w") as f:
-        runner = unittest.TextTestRunner(f)
-        unittest.main(testRunner=runner)
+with open(log_file, "r") as f:
+    f.read()
