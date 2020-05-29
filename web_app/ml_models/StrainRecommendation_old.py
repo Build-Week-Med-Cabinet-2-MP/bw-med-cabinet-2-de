@@ -1,8 +1,6 @@
 import numpy as np
 import pandas as pd
 from sklearn.neighbors import NearestNeighbors
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
 
 URL = "https://raw.githubusercontent.com/Build-Week-Med-Cabinet-2-MP/bw-med-cabinet-2-ml/data-generation/data/CLEAN_WMS_2020_05_24.csv"
 
@@ -29,7 +27,7 @@ class StrainRecommendation():
     self.df = pd.read_csv(self.url)
     self.x_train = self.df.drop(columns=["name","description"])
 
-  def knn_predict(self, user_input, k=3, PCA_check=True):
+  def knn_predict(self, user_input, k=3):
     """Generate k-Nearest Neighbor Cannabis Strains from User Preferences
     
     Args:
@@ -38,26 +36,9 @@ class StrainRecommendation():
 
     self.user_input = user_input
     self.k = k
-    self.PCA_check = PCA_check
 
-    if self.PCA_check == True:
-      # Use StandardScaler to normalize data before PCA
-      scaler = StandardScaler()
-      Z = scaler.fit_transform(self.x_train)
-
-      # Fit PCA object on data and transform data
-      pca = PCA(n_components=0.9)
-      self.x_train = pca.fit_transform(Z)
-      
-      # Run PCA on input vector
-      self.user_input = scaler.transform(self.user_input.reshape(1,-1))
-      self.user_input = pca.transform(self.user_input)
-
-    else:
-      pass
-
-    #self.neigh = NearestNeighbors(n_neighbors=self.k, n_jobs=-1)
-    self.neigh = NearestNeighbors(n_neighbors=self.k, n_jobs=-1, metric = "cosine")
+    self.neigh = NearestNeighbors(n_neighbors=self.k, n_jobs=-1)
+    #self.neigh = NearestNeighbors(n_neighbors=self.k, n_jobs=-1, metric = "cosine")
 
     self.neigh.fit(self.x_train)
     self.distances, self.indices = self.neigh.kneighbors(self.user_input.reshape(1, -1))
@@ -73,3 +54,7 @@ class StrainRecommendation():
     self.results["Flavors"] = self.reverse_onehot.copy().str[0:3]
     self.results["Effects"] = self.reverse_onehot.copy().str[3:6]
     return self.results
+
+if __name__ == "__main__":
+  results = StrainRecommendation()
+  
