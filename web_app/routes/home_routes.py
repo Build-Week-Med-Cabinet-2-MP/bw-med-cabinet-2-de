@@ -1,17 +1,16 @@
 # web_app/routes/home_routes.py
 
-from flask import Blueprint, jsonify, request
-from sqlalchemy import create_engine
+from flask import Blueprint, jsonify, request, redirect, render_template
 import json
 from pdb import set_trace as st
 from os.path import join as join_path
 import pandas as pd
-import pickle
 import numpy as np
 from web_app.ml_models.StrainRecommendation import StrainRecommendation as SR
 
 # Extra imports if neeeded
 # from flask_migrate import Migrate
+# from sqlalchemy import create_engine
 # import psycopg2 as psy
 # from psycopg2.extras import execute_values
 # from dotenv import load_dotenv
@@ -25,6 +24,15 @@ home_routes = Blueprint("home_routes", __name__)
 # columns from DF that will be used in the ML model
 df_cols = ['Ammonia', 'Apple', 'Apricot', 'Berry', 'Blue Cheese', 'Blueberry', 'Cheese', 'Chemical', 'Chestnut', 'Citrus', 'Coffee', 'Diesel', 'Earthly', 'Flowery', 'Grape', 'Grapefruit', 'Honey', 'Lavender', 'Lemon', 'Lime', 'Mango', 'Mint', 'Nutty', 'Orange', 'Pepper', 'Pine', 'Pineapple', 'Plum', 'Pungent',
            'Sage', 'Skunk', 'Spicy/Herbal', 'Strawberry', 'Sweet', 'Tar', 'Tea', 'Tobacco', 'Tree Fruit', 'Tropical', 'Vanilla', 'Woody', 'Aroused', 'Creative', 'Energetic', 'Euphoric', 'Focused', 'Giggly', 'Happy', 'Hungry', 'Relaxed', 'Sleepy', 'Talkative', 'Tingly', 'Uplifted', 'Hybrid', 'Indica', 'Sativa']
+
+# Creates a route redirecting to github
+@home_routes.route("/")
+def github():
+    '''
+    Re-directs to github
+    '''
+    # github_url = 'https://github.com/Build-Week-Med-Cabinet-2-MP'
+    return render_template('github_button.html')
 
 # route for strains (pre-data)
 @home_routes.route("/strains")
@@ -68,7 +76,7 @@ def input_encoder(input_dict, df_cols):
 
 # POST: backend gives us the input .json object
 # GET: backend requests the .json output (recommendations) from ML model 
-@home_routes.route("/model", methods=["POST", "GET"])
+@home_routes.route("/model", methods=["POST"])
 def final_output():
     '''
     Gets input data, feeds it to model, takes model output (df), converts to .json object and returns it

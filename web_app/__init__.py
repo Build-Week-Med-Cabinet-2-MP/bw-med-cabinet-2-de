@@ -2,6 +2,7 @@
 
 from flask import Flask
 from web_app.routes.home_routes import home_routes
+from web_app.routes.test_routes import test_routes
 
 def create_app():
     '''
@@ -12,7 +13,7 @@ def create_app():
     app.config['JSON_SORT_KEYS'] = False
     # register the home_routes file 
     app.register_blueprint(home_routes)
-
+    app.register_blueprint(test_routes)
     return app
 
 

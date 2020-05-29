@@ -1,10 +1,16 @@
 # weed-data-bw
 This is the data engineering side of the project
 
+# Views:
+When you visit these urls, you can access the following info
+
+## GET [/](https://weed-data-bw.herokuapp.com/)
+
+
 # APIs:
 Base URL is https://weed-data-bw.herokuapp.com
 
-## GET [/model](https://weed-data-bw.herokuapp.com/model)
+## POST [/model](https://weed-data-bw.herokuapp.com/model)
 
 ### Request:
 JSON object in the following format:
